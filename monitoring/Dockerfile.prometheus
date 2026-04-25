@@ -1,0 +1,13 @@
+FROM prom/prometheus:latest
+
+# Copy the Prometheus configuration file
+COPY prometheus.yml /etc/prometheus/prometheus.yml
+
+# Ensure the configuration file has the correct permissions
+# RUN chmod 644 /etc/prometheus/prometheus.yml
+
+# Expose the default Prometheus port
+EXPOSE 9090
+
+# Use the default command from the base image
+CMD ["--config.file=/etc/prometheus/prometheus.yml", "--web.enable-lifecycle"]

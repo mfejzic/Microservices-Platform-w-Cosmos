@@ -1,0 +1,12 @@
+FROM grafana/grafana:latest
+
+# Set environment variables for initial setup
+ENV GF_SECURITY_ADMIN_USER=admin
+ENV GF_SECURITY_ADMIN_PASSWORD=admin  
+ENV GF_USERS_ALLOW_SIGN_UP=false
+
+# Expose the default Grafana port
+EXPOSE 3000
+
+# Use the default command from the base image
+CMD ["grafana-server"]

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Board</title>
+</head>
+<body>
+    <h1>Welcome! You've visited this page {{ visits }} {{ 'time' if visits == 1 else 'times' }}.</h1>                    <!-- 'visits' passed through from app.py -->
+
+    <form method="POST">                                                                                                 <!-- submits data to server -->
+        <label for="message">Enter your message:</label>
+        <input type="text" id="message" name="message" placeholder="Type your message here..." required>
+        <input type="submit" value="Send Message">
+    </form>
+
+    <h2>Messages:</h2>
+    <ul>                                                                                                                  <!-- this is jinja2 loop. loops through each item in 'messages' list, 'm' is dictionary containing id and message -->
+        {% for m in messages %}
+        <p><strong>ID:</strong> {{ m.id }}<br><strong>Message:</strong> {{ m.message }}</p>                               <!-- for every message submitted, it will display the message and its unique ID -->
+        {% endfor %}                                                                                                      <!-- closes loop -->
+
+
+    </ul>
+</body>
+</html>

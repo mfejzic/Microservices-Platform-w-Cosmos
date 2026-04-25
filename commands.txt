@@ -1,0 +1,46 @@
+## build docker image
+docker build -t main-app .
+
+## list all built images
+docker images
+
+## check containers
+docker ps -a
+
+## start container from image - maps containers internal port(80) to your local port(8080)
+docker run -p 8080:80 flask-cosmos-app:latest
+
+## run your flask app locally
+docker run -p 8080:80 ` flask-cosmos-app:latest
+
+## interactive debug shell
+docker run -it --rm ` flask-cosmos-app:latest /bin/bash
+
+## push to registry - use wsl ubuntu
+az login
+az acr login --name mf37registry
+docker tag flask-cosmos-app:latest mf37registry.azurecr.io/flask-cosmos-app:latest
+docker push mf37registry.azurecr.io/flask-cosmos-app:latest
+
+## retrieve registry credentials
+az acr credential show --name mf37registry
+
+## connect to container instance using bash
+az containerapp exec   --resource-group serverless-group   --name main   --command sh
+
+    ## install curl
+    apt update && apt install curl
+    ## apt install dig and nslookip
+    apt update && apt install -y dnsutils
+
+            ## communciate to sentiment container from main container
+                 curl -v http://sentiment-app/analyze \
+                 -H "Content-Type: application/json" \
+                 -d '{"message": "i like goat cheese"}'
+
+
+## test to see if sentiment is working - replace with current sentiment app revision url - this worked the first time
+curl -X POST https://sentiment-app.wonderfulpond-96c6e39c.eastus.azurecontainerapps.io/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"message": "I love using this app!"}'
+
